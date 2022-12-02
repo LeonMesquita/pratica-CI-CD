@@ -1,0 +1,19 @@
+services:
+  students_ci_cd_db:
+    image: postgres
+    container_name: students_ci_cd_db
+    restart: always
+    ports:
+      - 4001:5432
+    env_file:
+      - .env.test
+  
+  students_ci_cd:
+    container_name: students_ci_cd
+    build: .
+    ports:
+      - 5000:5000
+    depends_on:
+      - students_ci_cd_db
+    env_file:
+      - .env.test
